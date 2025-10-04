@@ -4,7 +4,7 @@ import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense } from "react";
 
 import Loader from "../Components/Loader";
-import Earth from "../Components/Earth";
+import Satellite from "../Components/Satellite";
 
 const KineticImpactor = () => {
   return (
@@ -16,8 +16,7 @@ const KineticImpactor = () => {
         <OrbitControls />
         <Suspense fallback={<Loader />}>
           <Physics>
-            
-            
+            <Satellite />
           </Physics>
         </Suspense>
       </Canvas>
