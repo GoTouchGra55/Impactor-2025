@@ -57,7 +57,7 @@ const Simulation = () => {
                 speed={5}
               />
             )}
-            {mode && <SatelliteCam satelliteRef={satelliteRef} />}
+            {/* {mode && <SatelliteCam satelliteRef={satelliteRef} />} */}
           </Physics>
         </Canvas>
         {!mode && (
