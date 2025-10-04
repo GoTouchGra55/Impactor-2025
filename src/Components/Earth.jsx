@@ -8,7 +8,7 @@ const Earth = () => {
   const { scene } = useGLTF("/models/Earth.glb");
 
   const earthRef = useRef(); // the Earth mesh
-  const tiltRef = useRef();  // the group representing the tilted axis
+  const tiltRef = useRef(); // the group representing the tilted axis
 
   const axialTilt = 23.5 * (Math.PI / 180); // 23.5° in radians
   const rotationSpeed = 0.2; // adjust as needed
