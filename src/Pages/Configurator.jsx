@@ -82,12 +82,18 @@ const Configurator = () => {
         {selectedAsteroid && !showSearch && (
           <div>
             <DisplayInfo selectedAsteroid={selectedAsteroid} />
-            <Link
-              to={"/configure/deflect"}
-              className="absolute bottom-50 left-1/9 font-bold text-lg text-white bg-green-600 p-3 cursor-pointer rounded-md"
-            >
-              Start Simulation
-            </Link>
+            {diameterKm > 0.1 ? (
+              <Link
+                to={"/configure/deflect"}
+                className="absolute bottom-50 left-1/9 font-bold text-lg text-white bg-green-600 p-3 cursor-pointer rounded-md"
+              >
+                Start Simulation
+              </Link>
+            ) : (
+              <div className="absolute bottom-50 left-1/9 font-bold text-lg text-white bg-red-600 p-3 cursor-pointer rounded-md">
+                Too small for simulation
+              </div>
+            )}
             <div className="absolute bottom-30 left-1/9 font-bold text-lg text-white">
               <button
                 onClick={() => setShowSearch(true)}
