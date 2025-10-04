@@ -19,6 +19,9 @@ const About = () => {
           </Physics>
         </Suspense>
       </Canvas>
+      <div className="absolute top-10 left-2/5 text-white">
+        <h1>Team description</h1>
+      </div>
     </div>
   );
 };
