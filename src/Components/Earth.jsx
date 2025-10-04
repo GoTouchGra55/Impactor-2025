@@ -4,7 +4,7 @@ import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 
-const Earth = () => {
+const Earth = ({ position = [0, 0, 0], scale = 1 }) => {
   const { scene } = useGLTF("/models/Earth.glb");
 
   const earthRef = useRef(); // the Earth mesh
@@ -13,7 +13,7 @@ const Earth = () => {
   const axialTilt = 23.5 * (Math.PI / 180); // 23.5° in radians
   const rotationSpeed = 0.2; // adjust as needed
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!earthRef.current || !tiltRef.current) return;
 
     // Rotate around the tilted axis using quaternions
@@ -25,13 +25,14 @@ const Earth = () => {
 
   return (
     <RigidBody
-      position={[-100, 0, -1000]}
-      type="fixed"
+      position={position}
+      type="dynamic"
       colliders="ball"
       gravityScale={0}
+      mass={6e24}
     >
       <group ref={tiltRef} rotation={[axialTilt, 0, 0]}>
-        <primitive ref={earthRef} scale={20} object={scene} />
+        <primitive ref={earthRef} scale={scale} object={scene} />
       </group>
     </RigidBody>
   );

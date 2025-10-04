@@ -6,39 +6,37 @@ import { DiameterContext } from "../Context/DiameterContext";
 import { SpeedContext } from "../Context/SpeedContext";
 
 // Generate a curved orbit ending at the target position
-const generateOrbit = (target = [0, 0, 0], steps = 10000) => {
+const generateOrbit = (target = [0, 0, 0], steps = 1000) => {
   const points = [];
   const [tx, ty, tz] = target;
   for (let i = 0; i <= steps; i++) {
-    const t = i / steps; // normalized 0 → 1
-
-    // Start far away, curve in Y, end at target
+    const t = i / steps;
     const x = 10 * (1 - t) + tx * t;
     const y = 25 * Math.sin(Math.PI * t) + ty * 2 * t;
-    const z = 10 * (1 - t) + tz * t;
-
+    const z = 1 * (1 - t) + tz * t;
     points.push([x, y, z]);
   }
   return points;
 };
 
-export default function Meteorite({ target = [0, 0, 0] }) {
+export default function Meteorite({ target = [0, 0, 0], meteoriteRef }) {
   const { scene } = useGLTF("/models/meteorite.glb");
-  const meteoriteRef = useRef();
   const diameterKm = useContext(DiameterContext);
-  const speed = useContext(SpeedContext);
+  const speed = useContext(SpeedContext) || 1;
   const orbitPoints = useMemo(() => generateOrbit(target), [target]);
-
-  // Float index for smooth interpolation
   const positionRef = useRef(0);
 
   useFrame(() => {
-    if (!meteoriteRef.current) return;
+    if (!meteoriteRef?.current) return;
 
     const pos = positionRef.current;
+
+    // Stop at last point (Earth position)
+    if (pos >= orbitPoints.length - 1) return;
+
     const i = Math.floor(pos);
     const nextI = Math.min(i + 1, orbitPoints.length - 1);
-    const t = pos - i; // fractional progress
+    const t = pos - i;
 
     // Interpolate between current and next orbit point
     const point = [
@@ -47,25 +45,36 @@ export default function Meteorite({ target = [0, 0, 0] }) {
       orbitPoints[i][2] * (1 - t) + orbitPoints[nextI][2] * t,
     ];
 
-    meteoriteRef.current.setTranslation({ x: point[0], y: point[1], z: point[2] });
-    meteoriteRef.current.setAngvel({ x: -0.05, y: 0.1, z: 0 }, true);
+    // Set translation
+    meteoriteRef?.current.setTranslation({
+      x: point[0],
+      y: point[1],
+      z: point[2],
+    });
 
-    // Increment float position by speed, cap at the last point
-    positionRef.current = Math.min(pos + speed, orbitPoints.length - 1);
+    // Rotate on local axis
+    meteoriteRef?.current.setRotation({
+      x: pos * 0.2,
+      y: pos * 0.4,
+      z: pos * 0.1,
+    });
+
+    // Increment position along orbit
+    positionRef.current = Math.min(pos + speed * 0.2, orbitPoints.length - 1);
   });
 
   return (
     <>
       <RigidBody
         ref={meteoriteRef}
-        type="dynamic"
+        type="kinematicPosition"
         colliders="hull"
         gravityScale={0}
       >
         <primitive object={scene} scale={diameterKm / 5} />
       </RigidBody>
 
-      {/* Orbit Visualization */}
+      {/* Orbit visualization */}
       <Line points={orbitPoints} color="white" lineWidth={1} />
     </>
   );
