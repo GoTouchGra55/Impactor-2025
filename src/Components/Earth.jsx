@@ -24,9 +24,14 @@ const Earth = () => {
   });
 
   return (
-    <RigidBody type="fixed" colliders="ball" gravityScale={0}>
+    <RigidBody
+      position={[-100, 0, -1000]}
+      type="fixed"
+      colliders="ball"
+      gravityScale={0}
+    >
       <group ref={tiltRef} rotation={[axialTilt, 0, 0]}>
-        <primitive ref={earthRef} scale={1} object={scene} />
+        <primitive ref={earthRef} scale={20} object={scene} />
       </group>
     </RigidBody>
   );

@@ -9,8 +9,13 @@ const Satellite = ({
   const { scene } = useGLTF("/models/Satellite.glb");
 
   return (
-    <RigidBody position={position} rotation={rotation} type="dynamic" gravityScale={0}>
-      <primitive object={scene} scale={scale/5} />
+    <RigidBody
+      position={position}
+      rotation={rotation}
+      type="dynamic"
+      gravityScale={0}
+    >
+      <primitive object={scene} scale={scale / 5} />
     </RigidBody>
   );
 };
