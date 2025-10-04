@@ -32,7 +32,7 @@ const Simulation = () => {
           <pointLight intensity={1.5} decay={0.02} position={[10, 10, 5]} />
           <Stars count={4000} depth={10} radius={600} />
           {mode && <OrbitControls />}
-          <Physics debug>
+          <Physics >
             <Earth position={[-100, 0, -1000]} scale={20} />
             {!mode && (
               <Satellite
@@ -41,13 +41,20 @@ const Simulation = () => {
               />
             )}
             {!mode && <SimAsteroid position={[0, 0, 10]} />}
-            {mode && <Meteorite target={[-110, 5, -1000]} meteoriteRef={meteoriteRef} />}
+            {mode && (
+              <Meteorite
+                target={[-110, 5, -1000]}
+                origin={[0, 0, 0]}
+                meteoriteRef={meteoriteRef}
+              />
+            )}
             {mode === "Kinetic Impactor" && (
               <MovSatellite
                 satRef={satelliteRef}
                 // meteoriteRef={meteoriteRef}
                 position={[-110, 12, -980]}
                 scale={1 / 3}
+                speed={5}
               />
             )}
             {mode && <SatelliteCam satelliteRef={satelliteRef} />}
