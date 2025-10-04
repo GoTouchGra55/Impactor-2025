@@ -5,10 +5,10 @@ import { useKeyboardControls } from "@react-three/drei";
 
 export default function MovSatellite({
   position = [0, 0, 0],
-  rotation = [Math.PI, -Math.PI/2, Math.PI],
+  rotation = [Math.PI, -Math.PI / 2, Math.PI],
   scale = 1,
   speed = 1,
-  satRef
+  satRef,
 }) {
   const { scene } = useGLTF("/models/Satellite.glb");
   const [_, getKeys] = useKeyboardControls();

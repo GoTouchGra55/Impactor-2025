@@ -13,7 +13,7 @@ export default function SatelliteCam({ satelliteRef }) {
     if (!pos) return;
 
     controlsRef.current.target.set(pos.x, pos.y, pos.z);
-    camera.position.lerp({ x: pos.x, y: pos.y + 1/5, z: pos.z - 2/3 }, 0.05);
+    camera.position.lerp({ x: pos.x, y: pos.y + 1/10, z: pos.z - 2/3 }, 1);
     controlsRef.current.update();
   });
 
