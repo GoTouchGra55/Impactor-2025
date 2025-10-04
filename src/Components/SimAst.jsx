@@ -20,9 +20,11 @@ const SimAsteroid = ({ position = [3, -4, -3] }) => {
       ref={asteroidRef}
       type="dynamic"
       gravityScale={0}
+      scale={diameterKm / 5}
+      position={position}
       colliders="hull"
     >
-      <primitive position={position} scale={diameterKm / 5} object={scene} />
+      <primitive object={scene} />
     </RigidBody>
   );
 };
