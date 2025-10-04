@@ -51,7 +51,7 @@ const Configurator = () => {
 
   return (
     <DiameterContext.Provider value={diameterKm}>
-      <SpeedContext.Provider value={speed/10}>
+      <SpeedContext.Provider value={speed / 10}>
         <div className="relative w-screen h-screen">
           <Canvas camera={{ position: [5, 5, 5] }} className="bg-black">
             <OrbitControls />

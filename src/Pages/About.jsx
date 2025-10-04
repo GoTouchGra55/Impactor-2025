@@ -10,7 +10,7 @@ const About = () => {
     <div className="relative w-screen h-screen">
       <Canvas className="bg-black">
         <ambientLight intensity={0.2} />
-        <pointLight intensity={2} decay={0.1} position={[10, 5, 9]}/>
+        <pointLight intensity={2} decay={0.1} position={[10, 5, 9]} />
         <Stars count={400} depth={200} />
         <OrbitControls />
         <Suspense fallback={<Loader />}>

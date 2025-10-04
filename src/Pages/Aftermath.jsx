@@ -1,7 +1,3 @@
-// const NASA_API_KEY = "iHXsggLQsbZlImv3BjY3YG7H2iLfmDluyePoz8oK"; // Replace with your actual key
-
-
-
 import React, { useState, useEffect, useRef } from "react";
 import {
   MapContainer,
@@ -14,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 
 const { BaseLayer } = LayersControl;
 
-const NASA_API_KEY = "iHXsggLQsbZlImv3BjY3YG7H2iLfmDluyePoz8oK"; // <-- Replace with your NASA API key
+const NASA_API_KEY = import.meta.env.VITE_API_KEY; // <-- Replace with your NASA API key
 
 /* ---------------------------
    WorldPop WOPR API Integration
@@ -37,34 +33,200 @@ async function getCountryISO3(lat, lng) {
 
     // Full ISO2 to ISO3 mapping
     const iso2ToIso3 = {
-      AF: "AFG", AL: "ALB", DZ: "DZA", AS: "ASM", AD: "AND", AO: "AGO", AI: "AIA",
-      AQ: "ATA", AG: "ATG", AR: "ARG", AM: "ARM", AW: "ABW", AU: "AUS", AT: "AUT",
-      AZ: "AZE", BS: "BHS", BH: "BHR", BD: "BGD", BB: "BRB", BY: "BLR", BE: "BEL",
-      BZ: "BLZ", BJ: "BEN", BM: "BMU", BT: "BTN", BO: "BOL", BA: "BIH", BW: "BWA",
-      BR: "BRA", BN: "BRN", BG: "BGR", BF: "BFA", BI: "BDI", CV: "CPV", KH: "KHM",
-      CM: "CMR", CA: "CAN", KY: "CYM", CF: "CAF", TD: "TCD", CL: "CHL", CN: "CHN",
-      CO: "COL", KM: "COM", CG: "COG", CD: "COD", CR: "CRI", HR: "HRV", CU: "CUB",
-      CY: "CYP", CZ: "CZE", DK: "DNK", DJ: "DJI", DM: "DMA", DO: "DOM", EC: "ECU",
-      EG: "EGY", SV: "SLV", GQ: "GNQ", ER: "ERI", EE: "EST", ET: "ETH", FJ: "FJI",
-      FI: "FIN", FR: "FRA", GA: "GAB", GM: "GMB", GE: "GEO", DE: "DEU", GH: "GHA",
-      GR: "GRC", GD: "GRD", GT: "GTM", GN: "GIN", GW: "GNB", GY: "GUY", HT: "HTI",
-      HN: "HND", HK: "HKG", HU: "HUN", IS: "ISL", IN: "IND", ID: "IDN", IR: "IRN",
-      IQ: "IRQ", IE: "IRL", IL: "ISR", IT: "ITA", JM: "JAM", JP: "JPN", JO: "JOR",
-      KZ: "KAZ", KE: "KEN", KR: "KOR", KW: "KWT", KG: "KGZ", LA: "LAO", LV: "LVA",
-      LB: "LBN", LS: "LSO", LR: "LBR", LY: "LBY", LI: "LIE", LT: "LTU", LU: "LUX",
-      MO: "MAC", MG: "MDG", MW: "MWI", MY: "MYS", MV: "MDV", ML: "MLI", MT: "MLT",
-      MH: "MHL", MR: "MRT", MU: "MUS", MX: "MEX", FM: "FSM", MD: "MDA", MC: "MCO",
-      MN: "MNG", ME: "MNE", MA: "MAR", MZ: "MOZ", MM: "MMR", NA: "NAM", NR: "NRU",
-      NP: "NPL", NL: "NLD", NZ: "NZL", NI: "NIC", NE: "NER", NG: "NGA", NO: "NOR",
-      OM: "OMN", PK: "PAK", PW: "PLW", PA: "PAN", PG: "PNG", PY: "PRY", PE: "PER",
-      PH: "PHL", PL: "POL", PT: "PRT", QA: "QAT", RO: "ROU", RU: "RUS", RW: "RWA",
-      KN: "KNA", LC: "LCA", VC: "VCT", WS: "WSM", SM: "SMR", ST: "STP", SA: "SAU",
-      SN: "SEN", RS: "SRB", SC: "SYC", SL: "SLE", SG: "SGP", SK: "SVK", SI: "SVN",
-      SB: "SLB", SO: "SOM", ZA: "ZAF", ES: "ESP", LK: "LKA", SD: "SDN", SR: "SUR",
-      SE: "SWE", CH: "CHE", SY: "SYR", TW: "TWN", TJ: "TJK", TZ: "TZA", TH: "THA",
-      TL: "TLS", TG: "TGO", TO: "TON", TT: "TTO", TN: "TUN", TR: "TUR", TM: "TKM",
-      UG: "UGA", UA: "UKR", AE: "ARE", GB: "GBR", US: "USA", UY: "URY", UZ: "UZB",
-      VE: "VEN", VN: "VNM", YE: "YEM", ZM: "ZMB", ZW: "ZWE"
+      AF: "AFG",
+      AL: "ALB",
+      DZ: "DZA",
+      AS: "ASM",
+      AD: "AND",
+      AO: "AGO",
+      AI: "AIA",
+      AQ: "ATA",
+      AG: "ATG",
+      AR: "ARG",
+      AM: "ARM",
+      AW: "ABW",
+      AU: "AUS",
+      AT: "AUT",
+      AZ: "AZE",
+      BS: "BHS",
+      BH: "BHR",
+      BD: "BGD",
+      BB: "BRB",
+      BY: "BLR",
+      BE: "BEL",
+      BZ: "BLZ",
+      BJ: "BEN",
+      BM: "BMU",
+      BT: "BTN",
+      BO: "BOL",
+      BA: "BIH",
+      BW: "BWA",
+      BR: "BRA",
+      BN: "BRN",
+      BG: "BGR",
+      BF: "BFA",
+      BI: "BDI",
+      CV: "CPV",
+      KH: "KHM",
+      CM: "CMR",
+      CA: "CAN",
+      KY: "CYM",
+      CF: "CAF",
+      TD: "TCD",
+      CL: "CHL",
+      CN: "CHN",
+      CO: "COL",
+      KM: "COM",
+      CG: "COG",
+      CD: "COD",
+      CR: "CRI",
+      HR: "HRV",
+      CU: "CUB",
+      CY: "CYP",
+      CZ: "CZE",
+      DK: "DNK",
+      DJ: "DJI",
+      DM: "DMA",
+      DO: "DOM",
+      EC: "ECU",
+      EG: "EGY",
+      SV: "SLV",
+      GQ: "GNQ",
+      ER: "ERI",
+      EE: "EST",
+      ET: "ETH",
+      FJ: "FJI",
+      FI: "FIN",
+      FR: "FRA",
+      GA: "GAB",
+      GM: "GMB",
+      GE: "GEO",
+      DE: "DEU",
+      GH: "GHA",
+      GR: "GRC",
+      GD: "GRD",
+      GT: "GTM",
+      GN: "GIN",
+      GW: "GNB",
+      GY: "GUY",
+      HT: "HTI",
+      HN: "HND",
+      HK: "HKG",
+      HU: "HUN",
+      IS: "ISL",
+      IN: "IND",
+      ID: "IDN",
+      IR: "IRN",
+      IQ: "IRQ",
+      IE: "IRL",
+      IL: "ISR",
+      IT: "ITA",
+      JM: "JAM",
+      JP: "JPN",
+      JO: "JOR",
+      KZ: "KAZ",
+      KE: "KEN",
+      KR: "KOR",
+      KW: "KWT",
+      KG: "KGZ",
+      LA: "LAO",
+      LV: "LVA",
+      LB: "LBN",
+      LS: "LSO",
+      LR: "LBR",
+      LY: "LBY",
+      LI: "LIE",
+      LT: "LTU",
+      LU: "LUX",
+      MO: "MAC",
+      MG: "MDG",
+      MW: "MWI",
+      MY: "MYS",
+      MV: "MDV",
+      ML: "MLI",
+      MT: "MLT",
+      MH: "MHL",
+      MR: "MRT",
+      MU: "MUS",
+      MX: "MEX",
+      FM: "FSM",
+      MD: "MDA",
+      MC: "MCO",
+      MN: "MNG",
+      ME: "MNE",
+      MA: "MAR",
+      MZ: "MOZ",
+      MM: "MMR",
+      NA: "NAM",
+      NR: "NRU",
+      NP: "NPL",
+      NL: "NLD",
+      NZ: "NZL",
+      NI: "NIC",
+      NE: "NER",
+      NG: "NGA",
+      NO: "NOR",
+      OM: "OMN",
+      PK: "PAK",
+      PW: "PLW",
+      PA: "PAN",
+      PG: "PNG",
+      PY: "PRY",
+      PE: "PER",
+      PH: "PHL",
+      PL: "POL",
+      PT: "PRT",
+      QA: "QAT",
+      RO: "ROU",
+      RU: "RUS",
+      RW: "RWA",
+      KN: "KNA",
+      LC: "LCA",
+      VC: "VCT",
+      WS: "WSM",
+      SM: "SMR",
+      ST: "STP",
+      SA: "SAU",
+      SN: "SEN",
+      RS: "SRB",
+      SC: "SYC",
+      SL: "SLE",
+      SG: "SGP",
+      SK: "SVK",
+      SI: "SVN",
+      SB: "SLB",
+      SO: "SOM",
+      ZA: "ZAF",
+      ES: "ESP",
+      LK: "LKA",
+      SD: "SDN",
+      SR: "SUR",
+      SE: "SWE",
+      CH: "CHE",
+      SY: "SYR",
+      TW: "TWN",
+      TJ: "TJK",
+      TZ: "TZA",
+      TH: "THA",
+      TL: "TLS",
+      TG: "TGO",
+      TO: "TON",
+      TT: "TTO",
+      TN: "TUN",
+      TR: "TUR",
+      TM: "TKM",
+      UG: "UGA",
+      UA: "UKR",
+      AE: "ARE",
+      GB: "GBR",
+      US: "USA",
+      UY: "URY",
+      UZ: "UZB",
+      VE: "VEN",
+      VN: "VNM",
+      YE: "YEM",
+      ZM: "ZMB",
+      ZW: "ZWE",
     };
 
     return iso2ToIso3[iso2] || iso2; // return ISO3 or fallback ISO2
@@ -74,21 +236,20 @@ async function getCountryISO3(lat, lng) {
   }
 }
 
-
 // Function to submit polygon query to WorldPop WOPR API
 async function submitWorldPopQuery(geojson, countryISO3) {
   try {
     // URL encode the GeoJSON
     const geojsonEncoded = encodeURIComponent(JSON.stringify(geojson));
-    
+
     // Submit the polygon query
     const queryUrl = `https://api.worldpop.org/v1/wopr/polytotal?iso3=${countryISO3}&ver=1.2&geojson=${geojsonEncoded}`;
-    
+
     const response = await fetch(queryUrl);
     if (!response.ok) {
       throw new Error(`WorldPop query submission failed: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data.task_id;
   } catch (error) {
@@ -100,34 +261,37 @@ async function submitWorldPopQuery(geojson, countryISO3) {
 async function getWorldPopTaskResult(taskId, maxRetries = 10) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
-      const response = await fetch(`https://api.worldpop.org/v1/tasks/${taskId}`);
-      
+      const response = await fetch(
+        `https://api.worldpop.org/v1/tasks/${taskId}`
+      );
+
       if (!response.ok) {
         throw new Error(`Task status check failed: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
-      if (data.status === 'SUCCESS' && data.result) {
+
+      if (data.status === "SUCCESS" && data.result) {
         // Calculate mean population from the distribution
         const populationArray = data.result;
         const meanPopulation = Math.round(
-          populationArray.reduce((sum, val) => sum + val, 0) / populationArray.length
+          populationArray.reduce((sum, val) => sum + val, 0) /
+            populationArray.length
         );
         return meanPopulation;
-      } else if (data.status === 'PENDING' || data.status === 'STARTED') {
+      } else if (data.status === "PENDING" || data.status === "STARTED") {
         // Wait before retrying
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         continue;
-      } else if (data.status === 'FAILURE') {
-        throw new Error('WorldPop task failed');
+      } else if (data.status === "FAILURE") {
+        throw new Error("WorldPop task failed");
       }
     } catch (error) {
       if (attempt === maxRetries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
   }
-  throw new Error('WorldPop task timeout');
+  throw new Error("WorldPop task timeout");
 }
 
 // Main function to get population data from WorldPop
@@ -135,13 +299,13 @@ async function getWorldPopPopulation(geojson, lat, lng) {
   try {
     // Get country ISO code
     const countryISO3 = await getCountryISO3(lat, lng);
-    
+
     // Submit query and get task ID
     const taskId = await submitWorldPopQuery(geojson, countryISO3);
-    
+
     // Wait for and get results
     const population = await getWorldPopTaskResult(taskId);
-    
+
     return population;
   } catch (error) {
     console.warn("WorldPop API failed, using fallback estimation:", error);
@@ -155,15 +319,15 @@ function estimatePopulationByArea(geojson) {
   // Calculate area from GeoJSON coordinates (simplified)
   const coordinates = geojson.features[0].geometry.coordinates[0];
   let area = 0;
-  
+
   for (let i = 0; i < coordinates.length - 1; i++) {
     const [lon1, lat1] = coordinates[i];
     const [lon2, lat2] = coordinates[i + 1];
-    area += (lon2 - lon1) * (lat1 + lat2) / 2;
+    area += ((lon2 - lon1) * (lat1 + lat2)) / 2;
   }
-  
+
   const areaKm2 = Math.abs(area) * 111 * 111; // Rough conversion to km²
-  
+
   // Conservative global average density
   const averageDensity = 50; // people/km²
   return Math.round(areaKm2 * averageDensity);
@@ -193,7 +357,7 @@ function destinationPoint(lat, lon, distanceKm, bearingDeg) {
   const x = cosδ - sinφ1 * sinφ2;
   const λ2 = λ1 + Math.atan2(y, x);
 
-  return [ (φ2 * 180) / Math.PI, ((λ2 * 180) / Math.PI + 540) % 360 - 180 ];
+  return [(φ2 * 180) / Math.PI, (((λ2 * 180) / Math.PI + 540) % 360) - 180];
 }
 
 function makeCircleGeoJSON(lat, lon, radiusKm, steps = 64) {
@@ -204,7 +368,7 @@ function makeCircleGeoJSON(lat, lon, radiusKm, steps = 64) {
     coords.push([lon2, lat2]);
   }
   coords.push(coords[0]);
-  
+
   // Return in proper WOPR API format
   return {
     type: "FeatureCollection",
@@ -214,10 +378,10 @@ function makeCircleGeoJSON(lat, lon, radiusKm, steps = 64) {
         properties: {},
         geometry: {
           type: "Polygon",
-          coordinates: [coords]
-        }
-      }
-    ]
+          coordinates: [coords],
+        },
+      },
+    ],
   };
 }
 
@@ -328,16 +492,16 @@ const Aftermath = () => {
       const outerRadiusMeters = selectedMeteor.radii[2];
       const outerRadiusKm = outerRadiusMeters / 1000;
       const outerGeo = makeCircleGeoJSON(lat, lng, outerRadiusKm, 64);
-      
+
       // Use WorldPop WOPR API
       const outerPop = await getWorldPopPopulation(outerGeo, lat, lng);
-      
+
       setDataSource("WorldPop WOPR API");
 
       // Calculate inner ring populations based on area
       const outerArea = Math.PI * Math.pow(outerRadiusKm, 2);
-      const innerRadiusKm = (selectedMeteor.radii[0] / 1000);
-      const midRadiusKm = (selectedMeteor.radii[1] / 1000);
+      const innerRadiusKm = selectedMeteor.radii[0] / 1000;
+      const midRadiusKm = selectedMeteor.radii[1] / 1000;
       const innerArea = Math.PI * Math.pow(innerRadiusKm, 2);
       const midArea = Math.PI * Math.pow(midRadiusKm, 2);
 
@@ -362,7 +526,9 @@ const Aftermath = () => {
 
       setImpactDetails({
         magnitude,
-        energyIndicator: (selectedMeteor.diameterKm * selectedMeteor.velocity).toFixed(2),
+        energyIndicator: (
+          selectedMeteor.diameterKm * selectedMeteor.velocity
+        ).toFixed(2),
       });
     } catch (err) {
       console.error("Population / impact detail error:", err);
@@ -523,12 +689,16 @@ const Aftermath = () => {
           <hr className="my-2" />
 
           <div className="mb-2">
-            <strong>Data Source:</strong> 
-            <span className={`ml-2 ${
-              dataSource.includes("WorldPop") ? "text-green-400" : 
-              dataSource.includes("Estimated") ? "text-yellow-400" : 
-              "text-red-400"
-            }`}>
+            <strong>Data Source:</strong>
+            <span
+              className={`ml-2 ${
+                dataSource.includes("WorldPop")
+                  ? "text-green-400"
+                  : dataSource.includes("Estimated")
+                  ? "text-yellow-400"
+                  : "text-red-400"
+              }`}
+            >
               {dataSource}
               {loadingPopulation && " (Loading...)"}
             </span>
@@ -536,17 +706,21 @@ const Aftermath = () => {
 
           <p>
             <strong>Population (outer ring total):</strong>{" "}
-            {populationData && typeof populationData === "object" 
+            {populationData && typeof populationData === "object"
               ? (populationData.outerTotal ?? 0).toLocaleString()
-              : loadingPopulation ? "Loading..." : "Calculating..."}
+              : loadingPopulation
+              ? "Loading..."
+              : "Calculating..."}
           </p>
           <p>
             <strong>Population (inner ring):</strong>{" "}
-            {populationData?.inner?.toLocaleString() ?? (loadingPopulation ? "Loading..." : "--")}
+            {populationData?.inner?.toLocaleString() ??
+              (loadingPopulation ? "Loading..." : "--")}
           </p>
           <p>
             <strong>Population (mid ring):</strong>{" "}
-            {populationData?.mid?.toLocaleString() ?? (loadingPopulation ? "Loading..." : "--")}
+            {populationData?.mid?.toLocaleString() ??
+              (loadingPopulation ? "Loading..." : "--")}
           </p>
 
           <hr className="my-2" />
@@ -561,8 +735,9 @@ const Aftermath = () => {
           </p>
 
           <p className="mt-2 text-sm text-gray-300">
-            Note: Population data from WorldPop WOPR API with uncertainty modeling. 
-            Inner/mid rings estimated by area proportion. Magnitude is approximate.
+            Note: Population data from WorldPop WOPR API with uncertainty
+            modeling. Inner/mid rings estimated by area proportion. Magnitude is
+            approximate.
           </p>
         </div>
       )}
