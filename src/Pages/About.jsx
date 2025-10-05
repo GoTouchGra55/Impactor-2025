@@ -28,7 +28,7 @@ const About = () => {
       name: "Hafsa Mahmood",
       role: "Documentation & Reporting Specialist",
       image:
-        "https://media.discordapp.net/attachments/1250040343773315193/1424355731695472701/safana.png?ex=68e3a625&is=68e254a5&hm=1b97ec5747e382035b9e089b6b895ef2c84828072d4f475b1198bcb5518a834b&=&format=webp&quality=lossless",
+        "safana.png",
       linkedin: "https://www.linkedin.com/in/hafsa-mahmood",
       email: "mahmoodhafsa76@gmail.com",
       description:
