@@ -17,7 +17,8 @@ const About = () => {
     {
       name: "Shaurya Tamang",
       role: "Lead 3D Visualization & UI Development",
-      image: "https://avatars.githubusercontent.com/u/987654321?s=200&v=4",
+      image:
+        "https://avatars.githubusercontent.com/u/97439041?s=400&u=39d9ec5f7745ceee2583231e7b2f7e49d21f9280&v=4",
       github: "https://github.com/GoTouchGra55",
       email: "shauryatamang2009@gmail.com",
       description:
@@ -35,8 +36,10 @@ const About = () => {
     {
       name: "Chris Thomas Neel",
       role: "Junior QA & Testing Support",
-      image: "https://avatars.githubusercontent.com/u/1122334455?s=200&v=4",
+      image:
+        "https://cdn.discordapp.com/attachments/1408471004367294496/1424313199775453224/GetAttachmentThumbnail.jpg?ex=68e37e89&is=68e22d09&hm=8e930a84d8c9004158a8a992ae70a6459cab0b918446ba54619832642e9f8760",
       github: "https://www.github.com/Chris12345-cell",
+      email: "christhomasneel@outlook.com",
       description:
         "Responsible for assisting in testing features, identifying issues, and supporting overall project quality.",
     },
