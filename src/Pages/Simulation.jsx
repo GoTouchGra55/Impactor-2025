@@ -10,6 +10,7 @@ import Meteorite from "../Components/MovableAsteroid";
 import SatelliteCam from "../Components/CameraController";
 import KinetcImpactor from "../Components/KineticImpactor";
 import { Link } from "react-router-dom";
+import GravityTractor from "../Components/GravityTractor";
 
 const keyMap = [
   { name: "forward", keys: ["w", "W"] },
@@ -58,7 +59,16 @@ const Simulation = () => {
                   speed={3}
                 />
               )}
-              {mode && <SatelliteCam satelliteRef={satelliteRef} />}
+              {mode === "Gravity Tractor" && (
+                <GravityTractor
+                  satRef={satelliteRef}
+                  meteoriteRef={meteoriteRef}
+                  position={[-110, 12, -980]}
+                  scale={1 / 3}
+                  speed={3}
+                />
+              )}
+              {mode && <SatelliteCam mode={mode} satelliteRef={satelliteRef} />}
             </Physics>
           </Canvas>
           {!mode && (

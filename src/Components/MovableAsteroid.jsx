@@ -1,12 +1,11 @@
 import { Line, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DiameterContext } from "../Context/DiameterContext";
 
-const Meteorite = ({ targetPos = { x: -100, y: 0, z: -1000 } }) => {
+const Meteorite = ({ targetPos = { x: -110, y: 0, z: -1010 }, meteoriteRef }) => {
   const { scene } = useGLTF("/models/meteorite.glb");
-  const meteoriteRef = useRef();
   const diameterKm = useContext(DiameterContext);
   const [points, setPoints] = useState([
     [0, 0, 0],
@@ -16,7 +15,7 @@ const Meteorite = ({ targetPos = { x: -100, y: 0, z: -1000 } }) => {
   // Apply a one-time impulse when the physics body is ready
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (meteoriteRef.current) {
+      if (meteoriteRef?.current) {
         meteoriteRef.current.applyImpulse({ x: -2, y: 0, z: -20 }, true);
         console.log("Impulse applied after delay!");
       }
