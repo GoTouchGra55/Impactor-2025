@@ -1,4 +1,5 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import { Link } from "react-router-dom"
 
 const About = () => {
   const teamMembers = [
@@ -135,6 +136,14 @@ const About = () => {
             }}
           />
         ))}
+      </div>
+      <div className="absolute top-5 right-5 z-50">
+        <Link
+          to="/"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+        >
+          Back to Main Menu
+        </Link>
       </div>
     </div>
   );

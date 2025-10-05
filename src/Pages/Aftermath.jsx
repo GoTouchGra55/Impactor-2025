@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -604,7 +605,7 @@ const Aftermath = () => {
         ref={mapRef}
         center={[30, 70]}
         zoom={3}
-        style={{ height: "100%", width: "100%" }}
+        className="w-full h-full z-1"
       >
         <LayersControl position="topright">
           <BaseLayer checked name="Satellite (Space View)">
@@ -741,6 +742,14 @@ const Aftermath = () => {
           </p>
         </div>
       )}
+      <div className="absolute right-6 bottom-6 z-99">
+        <Link
+          to="/"
+          className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+        >
+          Back to Main Menu
+        </Link>
+      </div>
     </div>
   );
 };

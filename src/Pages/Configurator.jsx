@@ -114,6 +114,11 @@ const Configurator = () => {
             </div>
           )}
         </div>
+        <div className="absolute bottom-5 right-5 text-sm text-center text-white bg-gray-900 px-5 py-2 rounded-md">
+          <Link to={"/"} className="text-white hover:text-blue-500">
+            Back to Main Menu
+          </Link>
+        </div>
       </SpeedContext.Provider>
     </DiameterContext.Provider>
   );
