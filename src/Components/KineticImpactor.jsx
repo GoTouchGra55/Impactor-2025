@@ -47,8 +47,8 @@ export default function KineticImpactor({
     if (keys.backward) nextPos.z -= speed * delta * 0.5;
     if (keys.left) nextPos.x += speed * delta * 0.5;
     if (keys.right) nextPos.x -= speed * delta * 0.5;
-    if (keys.up) nextPos.y += speed * delta * 0.35;
-    if (keys.down) nextPos.y -= speed * delta * 0.35;
+    if (keys.up) nextPos.y += speed * delta * 0.5;
+    if (keys.down) nextPos.y -= speed * delta * 0.5;
 
     satRef.current.setNextKinematicTranslation(nextPos);
   });
