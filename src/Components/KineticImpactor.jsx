@@ -1,9 +1,10 @@
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { useState } from "react";
 import { ExplosionEffect } from "./Explosions";
+import DeflectedCard from "./DeflectedCard";
 
 export default function KineticImpactor({
   position = [0, 0, 0],
@@ -17,10 +18,11 @@ export default function KineticImpactor({
   const [_, getKeys] = useKeyboardControls();
   const [move, setMove] = useState(true);
   const [explosion, setExplosion] = useState(false);
+  const [isDestroyed, setIsDestroyed] = useState(false);
+  const [showReturn, setShowReturn] = useState(false);
 
   useFrame((_, delta) => {
     if (!satRef.current || !move) return;
-
     const keys = getKeys();
     const currentPos = satRef.current.translation();
     const nextPos = { ...currentPos };
@@ -49,10 +51,11 @@ export default function KineticImpactor({
           setMove(false);
           setExplosion(true);
 
+          setIsDestroyed(true);
           if (typeof onDeflect === "function") onDeflect();
         }}
       >
-        <primitive object={scene} scale={scale / 5} />
+        {!isDestroyed && <primitive object={scene} scale={scale / 5} />}
       </RigidBody>
 
       {explosion && (
@@ -64,9 +67,17 @@ export default function KineticImpactor({
           ]}
           onComplete={() => {
             setExplosion(false);
-            alert("Asteroid Deflected Successfully!");
+            setShowReturn(true);
           }}
         />
+      )}
+
+      {showReturn && (
+        <Html center>
+          <div className="flex justify-center items-center w-[160%]">
+            <DeflectedCard />
+          </div>
+        </Html>
       )}
     </>
   );
