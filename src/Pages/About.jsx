@@ -1,5 +1,5 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const About = () => {
   const teamMembers = [
@@ -56,10 +56,18 @@ const About = () => {
           <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300 drop-shadow-lg">
             Our Team
           </h2>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-4">
+          <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-4 mb-6">
             Meet the passionate people behind this project — each bringing
             unique skills and creativity to make our vision a reality.
           </p>
+          <a
+            href="/Team_Intro.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gray-600 px-4 py-2 font-mono rounded-md hover:bg-gray-900"
+          >
+            Download Team Introduction
+          </a>
         </div>
 
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
